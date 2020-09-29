@@ -10,13 +10,12 @@ router.post(
 	[auth, upload.single('profile'), validate('createProfile')],
 	profileController.createProfile
 );
-// router.put(
-// 	'/editProfile',
-// 	auth,
-// 	[auth, validate('editProfile')],
-// 	profileController.editProfile
-// );
-// router.get('/getProfile', auth, profileController.getProfileById);
-// router.delete('/deleteProfile', auth, profileController.deleteProfileById);
+router.put(
+	'/editProfile',
+	[auth, upload.single('profile'), validate('editProfile')],
+	profileController.editProfile
+);
+router.get('/getProfile/:id', auth, profileController.getProfileById);
+router.delete('/deleteProfile', auth, profileController.deleteProfile);
 
 module.exports = router;
