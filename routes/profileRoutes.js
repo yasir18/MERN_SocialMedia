@@ -16,6 +16,7 @@ router.put(
 	profileController.editProfile
 );
 router.get('/getProfile/:id', auth, profileController.getProfileById);
+router.get('/getMyProfile', auth, profileController.getMyProfile);
 router.delete('/deleteProfile', auth, profileController.deleteProfile);
 
 module.exports = router;
