@@ -4,7 +4,7 @@ const auth = require('../middlewares/auth');
 const profileController = require('../controllers/postController');
 
 router.get('/getAllPosts', auth, profileController.getAllPosts);
-router.get('/getPostsByUser', auth, profileController.getPostsByUserId);
+router.get('/getPostsByUser/:id', auth, profileController.getPostsByUserId);
 router.post(
 	'/createPost',
 	[auth, profileController.validate('createPost')],

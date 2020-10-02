@@ -36,7 +36,7 @@ exports.getAllPosts = async (req, res) => {
 };
 exports.getPostsByUserId = async (req, res) => {
 	try {
-		const userId = req.user.id;
+		const userId = req.params.id;
 		const posts = await Post.find({ user: userId }).sort({ createdAt: -1 });
 		return res.status(200).json(posts);
 	} catch (error) {
