@@ -1,8 +1,14 @@
 import React, { Fragment } from 'react';
 import './App.css';
+import { Provider } from 'react-redux';
+import store from './store';
 
 function App() {
-	return <Fragment>Hello World</Fragment>;
+	return (
+		<Provider store={store}>
+			<Fragment>Hello World</Fragment>
+		</Provider>
+	);
 }
 
 export default App;
