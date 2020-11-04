@@ -4,6 +4,8 @@ import {
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
 	LOGOUT,
+	USER_LOADED,
+	AUTH_ERROR,
 } from './types';
 import { setAlert } from '../actions/alert';
 import axios from 'axios';
@@ -58,6 +60,26 @@ export const register = (username, password) => async (dispatch) => {
 		}
 		dispatch({
 			type: REGISTER_FAIL,
+		});
+	}
+};
+
+export const loadUser = () => async (dispatch) => {
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				'auth-token': localStorage.token,
+			},
+		};
+		const resp = await axios.get('http://localhost:5000/api/user', config);
+		dispatch({
+			type: USER_LOADED,
+			payload: resp.data,
+		});
+	} catch (err) {
+		dispatch({
+			type: AUTH_ERROR,
 		});
 	}
 };

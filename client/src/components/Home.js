@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../actions/auth';
+import { Link, Redirect } from 'react-router-dom';
+import { Button } from '@material-ui/core';
+
 const Home = (props) => {
+	console.log(
+		'Home Render with isAuthenticated value ' + props.auth.isAuthenticated
+	);
 	return (
-		<div>
-			{props.auth.loading ? <span>Spinner</span> : <span>Home Page</span>}
-			<div>
-				<button onClick={() => props.logout()}>Log out</button>
-			</div>
-		</div>
+		<Fragment>
+			<h2>Home page</h2>
+
+			<Link to="/createProfile">
+				<Button variant="contained" color="primary">
+					createProfile
+				</Button>
+			</Link>
+		</Fragment>
 	);
 };
 

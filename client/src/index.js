@@ -8,3 +8,5 @@ ReactDOM.render(
 	</React.StrictMode>,
 	document.getElementById('root')
 );
+//Inorder to prevent component render twice, remove above line i.e, remove strict mode
+// ReactDOM.render(<App />, document.getElementById('root'));
