@@ -1,33 +1,57 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
-import { createProfile } from '../actions/profile';
+import { Redirect } from 'react-router-dom';
+import { editProfile, getMyProfile } from '../../actions/profile';
 
-const CreateProfile = (props) => {
-	const [profile, setProfile] = useState('');
+const EditProfile = ({
+	profile: { profile, loading },
+	getMyProfile,
+	editProfile,
+}) => {
+	const [image, setImage] = useState('');
 	const [email, setEmail] = useState('');
 	const [fullname, setFullname] = useState('');
 	const [city, setCity] = useState('');
 	const [profession, setProfession] = useState('');
+	const [bio, setBio] = useState('');
+	const [isSubmitted, setIsSubmitted] = useState(false);
+
+	useEffect(() => {
+		if (!profile) getMyProfile();
+		console.log('useEffect of EditProfile');
+		console.log(profile);
+		if (!loading && profile) {
+			setEmail(profile.email);
+			setFullname(profile.fullName);
+			setCity(profile.city);
+			setProfession(profile.profession);
+			setBio(profile.bio);
+		}
+	}, [getMyProfile, loading, profile]);
+
 	const onSubmit = (e) => {
 		e.preventDefault();
-		const formData = { profile, email, fullname, city, profession };
+		const formData = { image, email, fullname, city, profession, bio };
 		console.log(formData);
 		let form_data = new FormData();
-		form_data.append('profile', profile);
+		if (image !== '') form_data.append('profile', image);
 		form_data.append('email', email);
 		form_data.append('fullName', fullname);
 		form_data.append('city', city);
 		form_data.append('profession', profession);
+		form_data.append('bio', bio);
 		console.log(form_data);
-		props.createProfile(form_data);
+		editProfile(form_data);
+		setIsSubmitted(true);
 	};
-	if (!props.auth.isAuthenticated) {
-		return <Redirect to="/login" />;
+
+	if (isSubmitted) {
+		return <Redirect to="/home" />;
 	}
-	console.log('createProfile Render ');
+	console.log('Edit Profile Render');
+
 	return (
 		<Fragment>
 			<div className="login">
@@ -37,7 +61,7 @@ const CreateProfile = (props) => {
 						label="Profile Picture"
 						variant="outlined"
 						type="file"
-						onChange={(e) => setProfile(e.target.files[0])}
+						onChange={(e) => setImage(e.target.files[0])}
 						style={{ marginBottom: '10px' }}
 					/>
 					<br />
@@ -78,6 +102,17 @@ const CreateProfile = (props) => {
 						style={{ marginBottom: '20px' }}
 					/>
 					<br />
+					<TextField
+						name="bio"
+						label="Bio"
+						variant="outlined"
+						multiline
+						rows={3}
+						value={bio}
+						onChange={(e) => setBio(e.target.value)}
+						style={{ marginBottom: '20px' }}
+					/>
+					<br />
 					<Button type="submit" variant="contained" color="primary">
 						Submit
 					</Button>
@@ -87,8 +122,9 @@ const CreateProfile = (props) => {
 	);
 };
 
-CreateProfile.propTypes = {
-	createProfile: PropTypes.func.isRequired,
+EditProfile.propTypes = {
+	editProfile: PropTypes.func.isRequired,
+	getMyProfile: PropTypes.func.isRequired,
 	profile: PropTypes.object,
 };
 
@@ -97,7 +133,6 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { createProfile })(CreateProfile);
-
-//see why does refreshing the page making it go to home page
-//compare debug flow of Private routes of both dev connector and your mern
+export default connect(mapStateToProps, { editProfile, getMyProfile })(
+	EditProfile
+);

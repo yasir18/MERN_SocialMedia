@@ -3,6 +3,7 @@ import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { register } from '../actions/auth';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 const Register = (props) => {
 	const [username, setUsername] = useState('');
@@ -11,6 +12,9 @@ const Register = (props) => {
 		e.preventDefault();
 		props.register(username, password);
 	};
+	if (props.auth.isAuthenticated) {
+		return <Redirect to="/createProfile" />;
+	}
 	return (
 		<div className="login">
 			<form onSubmit={onSubmit}>

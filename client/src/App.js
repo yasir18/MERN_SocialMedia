@@ -9,7 +9,9 @@ import Alert from './components/Alert';
 import Navbar from './components/Navbar';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
-import CreateProfile from './components/CreateProfile';
+import CreateProfile from './components/Profile/CreateProfile';
+import ProfileDisplay from './components/Profile/ProfileDisplay';
+import EditProfile from './components/Profile/EditProfile';
 import PrivateRoute from './components/PrivateRoute';
 import { loadUser } from './actions/auth';
 
@@ -32,6 +34,16 @@ const App = () => {
 						exact
 						path="/createProfile"
 						component={CreateProfile}
+					/>
+					<PrivateRoute
+						exact
+						path="/viewProfile"
+						component={ProfileDisplay}
+					/>
+					<PrivateRoute
+						exact
+						path="/editProfile"
+						component={EditProfile}
 					/>
 				</Switch>
 			</BrowserRouter>

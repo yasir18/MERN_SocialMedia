@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { logout } from '../actions/auth';
+import { clearProfile } from '../actions/profile';
 
 const Navbar = (props) => {
 	return (
@@ -41,7 +42,10 @@ const Navbar = (props) => {
 				{props.auth.isAuthenticated && (
 					<button
 						className="btn btn-outline-success my-2 my-sm-0"
-						onClick={() => props.logout()}
+						onClick={() => {
+							props.logout();
+							props.clearProfile();
+						}}
 						type="submit"
 					>
 						LogOut
@@ -56,10 +60,11 @@ const Navbar = (props) => {
 Navbar.propTypes = {
 	auth: PropTypes.object,
 	logout: PropTypes.func.isRequired,
+	clearProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(mapStateToProps, { logout, clearProfile })(Navbar);

@@ -20,6 +20,9 @@ const profileSchema = mongoose.Schema({
 	image: {
 		type: String,
 	},
+	bio: {
+		type: String,
+	},
 	profession: {
 		type: String,
 	},

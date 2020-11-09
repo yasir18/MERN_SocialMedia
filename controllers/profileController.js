@@ -20,12 +20,13 @@ exports.createProfile = async (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	}
 	try {
-		const { email, fullName, city, profession } = req.body;
+		const { email, fullName, city, profession, bio } = req.body;
 		let profile = new Profile({
 			email,
 			fullName,
 			city,
 			profession,
+			bio,
 		});
 
 		let profileFromEmail = await Profile.findOne({ email });
@@ -54,8 +55,8 @@ exports.editProfile = async (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	}
-	const { email, fullName, city, profession } = req.body;
-	let profileObject = { email, fullName, city, profession };
+	const { email, fullName, city, profession, bio } = req.body;
+	let profileObject = { email, fullName, city, profession, bio };
 	if (req.image) profileObject.image = req.image;
 	try {
 		let profile = await Profile.findOneAndUpdate(
