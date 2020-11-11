@@ -1,10 +1,11 @@
 const Post = require('../models/Post');
+const Profile = require('../models/Profile');
 const { check, validationResult } = require('express-validator');
 
 exports.validate = (method) => {
 	switch (method) {
 		case 'createPost':
-			return [check('text', 'Body fot post is required').notEmpty()];
+			return [check('text', 'Body post is required').notEmpty()];
 	}
 };
 
@@ -14,14 +15,19 @@ exports.createPost = async (req, res) => {
 		return res.status(400).json({ errros: errors.array() });
 	}
 	const userId = req.user.id;
-	let post = new Post({
-		user: userId,
-		text: req.body.text,
-	});
 	try {
+		const user = await Profile.findOne({ user: userId });
+		let post = new Post({
+			user: userId,
+			name: user.fullName,
+			image: user.image,
+			text: req.body.text,
+		});
+
 		let returnedPost = await post.save();
 		return res.status(200).json(returnedPost);
 	} catch (error) {
+		console.log(error);
 		return res.status(500).json({ errors: [error] });
 	}
 };

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../actions/auth';
 import { getMyProfile } from '../actions/profile';
+import { getAllPosts } from '../actions/post';
 import { Link } from 'react-router-dom';
 import { Button, Avatar } from '@material-ui/core';
 import Spinner from './Spinner';
@@ -11,6 +12,8 @@ const Home = (props) => {
 	const {
 		getMyProfile,
 		profile: { profile, loading },
+		getAllPosts,
+		posts,
 	} = props;
 
 	console.log(
@@ -19,7 +22,8 @@ const Home = (props) => {
 	console.log('Home Render with profile value ' + profile);
 	useEffect(() => {
 		getMyProfile();
-	}, [getMyProfile]);
+		getAllPosts();
+	}, [getMyProfile, getAllPosts]);
 
 	return (
 		<Fragment>
@@ -77,7 +81,21 @@ const Home = (props) => {
 						className="col-md-8"
 						style={{ border: '1px solid black' }}
 					>
-						<p>Posts display section</p>
+						{posts.loading || posts.posts.length === 0 ? (
+							<Spinner />
+						) : (
+							<>
+								{posts.posts.map((post) => {
+									return (
+										<div>
+											{post.user}
+											<br />
+											{post.text}
+										</div>
+									);
+								})}
+							</>
+						)}
 					</div>
 				</div>
 			</div>
@@ -90,10 +108,14 @@ Home.propTypes = {
 	profile: PropTypes.object,
 	logout: PropTypes.func.isRequired,
 	getMyProfile: PropTypes.func.isRequired,
+	getAllPosts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
 	profile: state.profile,
+	posts: state.posts,
 });
-export default connect(mapStateToProps, { logout, getMyProfile })(Home);
+export default connect(mapStateToProps, { logout, getMyProfile, getAllPosts })(
+	Home
+);

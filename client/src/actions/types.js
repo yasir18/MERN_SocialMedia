@@ -14,3 +14,7 @@ export const PROFILE_LOADED = 'PROFILE_LOADED';
 export const PROFILE_ERROR = 'PROFILE_ERROR';
 export const PROFILE_UPDATE = 'PROFILE_UPDATE';
 export const CLEAR_PROFILE = 'CLEAR-PROFILE';
+export const CREATE_POST = 'CREATE_POST';
+export const POST_ERROR = 'POST_ERROR';
+export const GET_ALL_POSTS = 'GET_ALL_POSTS';
+export const POSTS_FETCH_ERROR = 'POSTS_FETCH_ERROR';
