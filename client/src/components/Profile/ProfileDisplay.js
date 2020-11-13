@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import Spinner from '../Spinner';
+import Spinner from '../utils/Spinner';
 import { getMyProfile } from '../../actions/profile';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Button } from '@material-ui/core';

@@ -29,15 +29,21 @@ export const login = (username, password) => async (dispatch) => {
 		});
 		dispatch(setAlert('Login Success', 'success'));
 	} catch (err) {
-		const errors = err.response.data.errors;
-		//In future, change error.msg to error.message because if there is problem with server, error will be filled in message field
-		//To use error.message, need to change all server side error patterns
-		if (errors) {
-			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+		try {
+			const errors = err.response.data.errors;
+			//In future, change error.msg to error.message because if there is problem with server, error will be filled in message field
+			//To use error.message, need to change all server side error patterns
+			if (errors) {
+				errors.forEach((error) =>
+					dispatch(setAlert(error.msg, 'danger'))
+				);
+			}
+			dispatch({
+				type: LOGIN_FAIL,
+			});
+		} catch (err) {
+			dispatch(setAlert('Unhandled', 'danger'));
 		}
-		dispatch({
-			type: LOGIN_FAIL,
-		});
 	}
 };
 

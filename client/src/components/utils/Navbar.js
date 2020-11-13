@@ -2,8 +2,8 @@ import { Link } from '@material-ui/core';
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { logout } from '../actions/auth';
-import { clearProfile } from '../actions/profile';
+import { logout } from '../../actions/auth';
+import { clearProfile } from '../../actions/profile';
 
 const Navbar = (props) => {
 	return (
