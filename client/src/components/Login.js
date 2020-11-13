@@ -21,12 +21,6 @@ const Login = (props) => {
 	return (
 		<Fragment>
 			<div className="login">
-				{props.auth.isAuthenticated ? (
-					<p>Authenticated</p>
-				) : (
-					<span>NotAuthenticated</span>
-				)}
-				{props.auth.loading ? <p>loading</p> : <span>Not loading</span>}
 				<form onSubmit={onSubmit}>
 					<TextField
 						name="username"

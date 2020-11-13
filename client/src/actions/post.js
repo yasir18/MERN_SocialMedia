@@ -15,10 +15,12 @@ export const createPost = (text) => async (dispatch) => {
 				'auth-token': localStorage.getItem('token'),
 			},
 		};
-
+		const formData = {
+			text,
+		};
 		const resp = await axios.post(
 			'http://localhost:5000/api/posts/createPost',
-			text,
+			formData,
 			config
 		);
 		dispatch({

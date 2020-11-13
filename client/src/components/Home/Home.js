@@ -10,18 +10,15 @@ const Home = (props) => {
 	);
 	return (
 		<Fragment>
-			<div
-				className="container"
-				style={{ margin: '20px 0px', fontFamily: 'cursive' }}
-			>
+			<div style={{ margin: '20px 0px', fontFamily: 'cursive' }}>
 				<div className="row">
-					<div className="col-md-3" style={{ textAlign: 'center' }}>
+					<div
+						className="col-md-3"
+						style={{ textAlign: 'center', paddingTop: '20px' }}
+					>
 						<ProfileSection />
 					</div>
-					<div
-						className="col-md-8"
-						style={{ border: '1px solid black' }}
-					>
+					<div className="col-md-8" style={{ padding: '20px' }}>
 						<PostsSection />
 					</div>
 				</div>

@@ -30,7 +30,7 @@ const ProfileSection = (props) => {
 				</>
 			) : (
 				<>
-					<p>Profile display section</p>
+					{/* <p>Profile display section</p> */}
 					<Avatar
 						alt={profile.fullName}
 						src={profile.image}
