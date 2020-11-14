@@ -56,7 +56,7 @@ exports.likePostById = async (req, res) => {
 	try {
 		let post = await Post.findById(postId);
 		if (post.likes.some((like) => like.user.toString() === userId))
-			return res.status(200).json({ msg: 'post already liked by user' });
+			return res.status(409).json({ msg: 'post already liked by user' });
 		post.likes.unshift({ user: userId });
 		await post.save();
 		return res.status(200).json(post);
@@ -71,7 +71,7 @@ exports.unlikePostById = async (req, res) => {
 	try {
 		let post = await Post.findById(postId);
 		if (!post.likes.some((like) => like.user.toString() === userId))
-			return res.status(200).json({ msg: 'post not yet liked by user' });
+			return res.status(409).json({ msg: 'post not yet liked by user' });
 		post.likes = post.likes.filter(
 			(like) => like.user.toString() !== userId
 		);

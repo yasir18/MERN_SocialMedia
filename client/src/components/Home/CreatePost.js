@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Avatar, TextField } from '@material-ui/core';
-import { set } from 'mongoose';
+import { Button, TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { createPost } from '../../actions/post';
 import PropTypes from 'prop-types';

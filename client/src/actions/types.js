@@ -18,3 +18,5 @@ export const CREATE_POST = 'CREATE_POST';
 export const POST_ERROR = 'POST_ERROR';
 export const GET_ALL_POSTS = 'GET_ALL_POSTS';
 export const POSTS_FETCH_ERROR = 'POSTS_FETCH_ERROR';
+export const LIKE_POST = 'LIKE_POST';
+export const UNLIKE_POST = 'UNLIKE_POST';
