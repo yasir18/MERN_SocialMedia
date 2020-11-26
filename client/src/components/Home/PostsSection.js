@@ -1,10 +1,11 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllPosts, likePost, unlikePost } from '../../actions/post';
 import { Button, Avatar } from '@material-ui/core';
 import Spinner from '../utils/Spinner';
 import CreatePost from './CreatePost';
+import Pagination from './Pagination';
 
 const PostsSection = (props) => {
 	const {
@@ -15,9 +16,19 @@ const PostsSection = (props) => {
 		posts: { posts, loading },
 	} = props;
 
+	const [currentPageNumber, setcurrentPageNumber] = useState(1);
+	const [pageSize] = useState(8);
+
 	useEffect(() => {
 		getAllPosts();
 	}, [getAllPosts]);
+
+	//get current posts
+	const lastIndex = currentPageNumber * pageSize;
+	const firstIndex = lastIndex - pageSize;
+	const currentPosts = posts.slice(firstIndex, lastIndex);
+
+	const changePageNumber = (number) => setcurrentPageNumber(number);
 
 	const isLiked = (post) => {
 		return post.likes.some((like) => like.user.toString() === auth.user);
@@ -36,7 +47,7 @@ const PostsSection = (props) => {
 				<>
 					<div>
 						<CreatePost />
-						{posts.map((post, index) => {
+						{currentPosts.map((post, index) => {
 							return (
 								<div
 									key={index}
@@ -115,6 +126,11 @@ const PostsSection = (props) => {
 							);
 						})}
 					</div>
+					<Pagination
+						currentPageNumber={currentPageNumber}
+						changePageNumber={changePageNumber}
+						numberOfPages={Math.ceil(posts.length / pageSize)}
+					/>
 				</>
 			)}
 		</Fragment>
