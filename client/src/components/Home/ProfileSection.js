@@ -48,7 +48,7 @@ const ProfileSection = (props) => {
 						</span>
 					</p>
 					<p>
-						<Link to="/viewProfile">
+						<Link to={`/viewProfile/${profile.user}`}>
 							<Button variant="contained" color="primary">
 								View Profile
 							</Button>

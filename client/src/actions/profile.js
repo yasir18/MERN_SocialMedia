@@ -68,6 +68,35 @@ export const getMyProfile = () => async (dispatch) => {
 	}
 };
 
+export const getProfileByUserId = (id) => async (dispatch) => {
+	try {
+		const config = {
+			headers: {
+				'Content-Type': 'application/json',
+				'auth-token': localStorage.token,
+			},
+		};
+
+		const resp = await axios.get(
+			`http://localhost:5000/api/profile/getProfileByUserId/${id}`,
+			config
+		);
+		// console.log(resp.data);
+		dispatch({
+			type: PROFILE_LOADED,
+			payload: resp.data,
+		});
+	} catch (err) {
+		const errors = err.response.data.errors;
+		if (errors) {
+			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+		}
+		dispatch({
+			type: PROFILE_ERROR,
+		});
+	}
+};
+
 export const editProfile = (formdata) => async (dispatch) => {
 	try {
 		const config = {

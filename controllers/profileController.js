@@ -80,6 +80,16 @@ exports.getProfileById = async (req, res) => {
 	}
 };
 
+exports.getProfileByUserId = async (req, res) => {
+	const id = req.params.id;
+	try {
+		let profile = await Profile.findOne({ user: id });
+		res.status(200).json(profile);
+	} catch (error) {
+		return res.status(500).json({ errors: [error] });
+	}
+};
+
 exports.getMyProfile = async (req, res) => {
 	const id = req.user.id;
 	try {

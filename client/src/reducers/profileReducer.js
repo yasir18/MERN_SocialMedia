@@ -28,7 +28,7 @@ export default function (state = initialState, action) {
 				loading: false,
 			};
 		case PROFILE_LOADED:
-			//console.log(payload);
+			console.log(payload);
 			return {
 				profile: payload,
 				loading: false,

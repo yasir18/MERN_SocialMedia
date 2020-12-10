@@ -37,7 +37,7 @@ const App = () => {
 					/>
 					<PrivateRoute
 						exact
-						path="/viewProfile"
+						path="/viewProfile/:id"
 						component={ProfileDisplay}
 					/>
 					<PrivateRoute

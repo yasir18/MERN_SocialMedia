@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../utils/Spinner';
-import { getMyProfile } from '../../actions/profile';
+import { getMyProfile, getProfileByUserId } from '../../actions/profile';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -30,12 +30,16 @@ const ProfileDisplay = (props) => {
 	const {
 		classes,
 		profile: { profile, loading },
-		getMyProfile,
+		auth,
+		getProfileByUserId,
+		match,
 	} = props;
 
 	useEffect(() => {
-		getMyProfile();
-	}, [getMyProfile]);
+		console.log('inside useffect of profile display ' + match.params.id);
+		//getMyProfile();
+		getProfileByUserId(match.params.id);
+	}, [getProfileByUserId, match.params.id]);
 
 	return (
 		<div>
@@ -47,8 +51,8 @@ const ProfileDisplay = (props) => {
 						<>
 							<div className={`col-md-4 ${classes.imageGrid}`}>
 								<img
-									src={profile.image}
-									alt="name"
+									src={`http://localhost:3000/${profile.image}`}
+									alt={profile.name}
 									className={classes.image}
 								/>
 							</div>
@@ -69,11 +73,16 @@ const ProfileDisplay = (props) => {
 									</span>
 									{profile.email}
 								</p>
-								<Link to="/editProfile">
-									<Button variant="contained" color="primary">
-										Edit Profile
-									</Button>
-								</Link>
+								{auth.user === profile.user && (
+									<Link to="/editProfile">
+										<Button
+											variant="contained"
+											color="primary"
+										>
+											Edit Profile
+										</Button>
+									</Link>
+								)}
 							</div>
 						</>
 					)}
@@ -84,8 +93,9 @@ const ProfileDisplay = (props) => {
 };
 const mapStateToProps = (state) => ({
 	profile: state.profile,
+	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getMyProfile })(
+export default connect(mapStateToProps, { getMyProfile, getProfileByUserId })(
 	withStyles(styles)(ProfileDisplay)
 );

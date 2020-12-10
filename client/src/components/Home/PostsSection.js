@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getAllPosts, likePost, unlikePost } from '../../actions/post';
-import { Button, Avatar } from '@material-ui/core';
+import { Button, Avatar, Link } from '@material-ui/core';
 import Spinner from '../utils/Spinner';
 import CreatePost from './CreatePost';
 import Pagination from './Pagination';
@@ -70,15 +70,18 @@ const PostsSection = (props) => {
 												margin: 'auto',
 											}}
 										/>
-
-										<span
-											style={{
-												margin: 'auto 5px',
-												color: 'darkcyan',
-											}}
+										<Link
+											href={`/viewProfile/${post.user}`}
 										>
-											{post.name}
-										</span>
+											<span
+												style={{
+													margin: 'auto 5px',
+													color: 'darkcyan',
+												}}
+											>
+												{post.name}
+											</span>
+										</Link>
 									</div>
 									<div style={{}}>
 										<div>
