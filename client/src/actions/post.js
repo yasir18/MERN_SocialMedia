@@ -5,6 +5,7 @@ import {
 	GET_ALL_POSTS,
 	LIKE_POST,
 	UNLIKE_POST,
+	DELETE_POST,
 } from '../actions/types';
 import { setAlert } from '../actions/alert';
 import axios from 'axios';
@@ -154,6 +155,41 @@ export const unlikePost = (postId, userId) => async (dispatch) => {
 						dispatch(setAlert(error.msg, 'danger'))
 					);
 				}
+			}
+		} catch (err) {
+			dispatch(setAlert('Unhandled', 'danger'));
+		}
+	}
+};
+
+export const deletePost = (postId) => async (dispatch) => {
+	try {
+		console.log('inside deletepost postId' + postId);
+		const config = {
+			headers: {
+				'content-Type': 'application/json',
+				'auth-token': localStorage.token,
+			},
+		};
+
+		await axios.delete(
+			`http://localhost:5000/api/posts/delete/${postId}`,
+			config
+		);
+		const payload = {
+			postId,
+		};
+		dispatch({
+			type: DELETE_POST,
+			payload: payload,
+		});
+	} catch (err) {
+		try {
+			const errors = err.response.data.errors;
+			if (errors) {
+				errors.forEach((error) =>
+					dispatch(setAlert(error.msg, 'danger'))
+				);
 			}
 		} catch (err) {
 			dispatch(setAlert('Unhandled', 'danger'));

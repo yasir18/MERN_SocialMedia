@@ -1,16 +1,17 @@
 var express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth');
-const profileController = require('../controllers/postController');
+const postController = require('../controllers/postController');
 
-router.get('/getAllPosts', auth, profileController.getAllPosts);
-router.get('/getPostsByUser/:id', auth, profileController.getPostsByUserId);
+router.get('/getAllPosts', auth, postController.getAllPosts);
+router.get('/getPostsByUser/:id', auth, postController.getPostsByUserId);
 router.post(
 	'/createPost',
-	[auth, profileController.validate('createPost')],
-	profileController.createPost
+	[auth, postController.validate('createPost')],
+	postController.createPost
 );
-router.post('/like/:id', auth, profileController.likePostById);
-router.post('/unlike/:id', auth, profileController.unlikePostById);
+router.post('/like/:id', auth, postController.likePostById);
+router.post('/unlike/:id', auth, postController.unlikePostById);
+router.delete('/delete/:id', auth, postController.deletePostById);
 
 module.exports = router;

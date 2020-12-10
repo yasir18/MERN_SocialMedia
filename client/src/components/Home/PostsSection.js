@@ -1,23 +1,32 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getAllPosts, likePost, unlikePost } from '../../actions/post';
+import {
+	getAllPosts,
+	likePost,
+	unlikePost,
+	deletePost,
+} from '../../actions/post';
 import { Button, Avatar, Link } from '@material-ui/core';
 import Spinner from '../utils/Spinner';
 import CreatePost from './CreatePost';
 import Pagination from './Pagination';
+import ConfirmDialog from '../utils/ConfirmDialog';
 
 const PostsSection = (props) => {
 	const {
 		getAllPosts,
 		likePost,
 		unlikePost,
+		deletePost,
 		auth,
 		posts: { posts, loading },
 	} = props;
 
 	const [currentPageNumber, setcurrentPageNumber] = useState(1);
 	const [pageSize] = useState(8);
+	const [dialogOpen, setDialogOpen] = useState(false);
+	const [deletePostId, setDeletePostId] = useState('');
 
 	useEffect(() => {
 		getAllPosts();
@@ -88,21 +97,6 @@ const PostsSection = (props) => {
 											<q>{post.text}</q>
 										</div>
 										<div>
-											{/* <Button
-												onClick={(e) => {
-													likePost(
-														post._id,
-														auth.user
-													);
-												}}
-											>
-												<i
-													className="fa fa-thumbs-up fa-lg"
-													aria-hidden="true"
-												></i>
-												{post && post.likes.length}
-											</Button> */}
-
 											<Button
 												style={getColor(post)}
 												onClick={(e) => {
@@ -123,6 +117,31 @@ const PostsSection = (props) => {
 												></i>{' '}
 												{post && post.likes.length}
 											</Button>
+											{/* If there are problems with dialog, remove the component and just call deletePost in onClick */}
+											{post.user === auth.user && (
+												<Fragment>
+													<Button
+														onClick={(e) => {
+															setDialogOpen(true);
+															setDeletePostId(
+																post._id
+															);
+														}}
+													>
+														<i
+															className="fa fa-trash fa-lg"
+															aria-hidden="true"
+														></i>{' '}
+													</Button>
+													<ConfirmDialog
+														title="Are you sure you want to delete Post? "
+														open={dialogOpen}
+														setOpen={setDialogOpen}
+														onConfirm={deletePost}
+														postId={deletePostId}
+													/>
+												</Fragment>
+											)}
 										</div>
 									</div>
 								</div>
@@ -146,6 +165,7 @@ PostsSection.propTypes = {
 	getAllPosts: PropTypes.func.isRequired,
 	likePost: PropTypes.func.isRequired,
 	unlikePost: PropTypes.func.isRequired,
+	deletePost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -153,6 +173,9 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getAllPosts, likePost, unlikePost })(
-	PostsSection
-);
+export default connect(mapStateToProps, {
+	getAllPosts,
+	likePost,
+	unlikePost,
+	deletePost,
+})(PostsSection);

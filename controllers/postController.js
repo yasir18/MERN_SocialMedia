@@ -81,3 +81,21 @@ exports.unlikePostById = async (req, res) => {
 		return res.status(500).json({ errors: [error] });
 	}
 };
+
+exports.deletePostById = async (req, res) => {
+	const userId = req.user.id;
+	const postId = req.params.id;
+	try {
+		let post = await Post.findById(postId);
+		if (post.user.toString() == userId) {
+			await Post.findByIdAndDelete(postId);
+			res.status(200).json({ msg: 'Post Deleted successfully' });
+		} else {
+			return res
+				.status(403)
+				.json({ errors: [{ msg: 'Not authorised' }] });
+		}
+	} catch (error) {
+		return res.status(500).json({ errors: [error] });
+	}
+};

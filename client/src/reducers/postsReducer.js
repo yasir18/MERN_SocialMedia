@@ -5,6 +5,7 @@ import {
 	GET_ALL_POSTS,
 	LIKE_POST,
 	UNLIKE_POST,
+	DELETE_POST,
 } from '../actions/types';
 
 const initialState = {
@@ -66,6 +67,13 @@ export default function (state = initialState, action) {
 				loading: false,
 			};
 		}
+		case DELETE_POST:
+			return {
+				...state,
+				posts: state.posts.filter(
+					(post) => post._id !== payload.postId
+				),
+			};
 		default:
 			return state;
 	}
