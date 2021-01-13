@@ -1,8 +1,15 @@
 .login {
 	border: 2px black solid;
-	padding: 40px;
+	padding: 5%;
 	width: 35%;
-	margin: 120px auto;
+	margin: 5% auto;
+}
+
+.profile {
+	border: 2px black solid;
+	padding: 5%;
+	width: 50%;
+	margin: 5% auto;
 }
 
 #root {

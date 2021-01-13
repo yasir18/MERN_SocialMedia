@@ -35,7 +35,7 @@ const CreateProfile = (props) => {
 	console.log('createProfile Render ');
 	return (
 		<Fragment>
-			<div className="login">
+			<div className="profile">
 				<form onSubmit={onSubmit}>
 					<TextField
 						name="profile"
