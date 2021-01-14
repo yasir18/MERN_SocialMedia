@@ -7,7 +7,6 @@ import { clearProfile } from '../../actions/profile';
 
 const Navbar = (props) => {
 	return (
-		// <div style={{ width: '100%' }}>
 		<nav className="navbar navbar-expand-sm  fixed-top  navbar-dark bg-dark">
 			<Link
 				href="/home"

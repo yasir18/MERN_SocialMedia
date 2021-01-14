@@ -51,7 +51,7 @@ const ProfileDisplay = (props) => {
 						<>
 							<div className={`col-md-4 ${classes.imageGrid}`}>
 								<img
-									src={`http://localhost:3000/${profile.image}`}
+									src={`http://localhost:5000/${profile.image}`}
 									alt={profile.name}
 									className={classes.image}
 								/>
