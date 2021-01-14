@@ -22,7 +22,7 @@ export const createPost = (text) => async (dispatch) => {
 			text,
 		};
 		const resp = await axios.post(
-			'http://localhost:5000/api/posts/createPost',
+			'/api/posts/createPost',
 			formData,
 			config
 		);
@@ -57,10 +57,7 @@ export const getAllPosts = () => async (dispatch) => {
 			},
 		};
 
-		const resp = await axios.get(
-			'http://localhost:5000/api/posts/getAllPosts',
-			config
-		);
+		const resp = await axios.get('/api/posts/getAllPosts', config);
 		// console.log(resp.data);
 		dispatch({
 			type: GET_ALL_POSTS,
@@ -93,11 +90,7 @@ export const likePost = (postId, userId) => async (dispatch) => {
 			},
 		};
 
-		await axios.post(
-			`http://localhost:5000/api/posts/like/${postId}`,
-			{},
-			config
-		);
+		await axios.post(`/api/posts/like/${postId}`, {}, config);
 		const payload = {
 			postId,
 			userId,
@@ -132,11 +125,7 @@ export const unlikePost = (postId, userId) => async (dispatch) => {
 			},
 		};
 
-		await axios.post(
-			`http://localhost:5000/api/posts/unlike/${postId}`,
-			{},
-			config
-		);
+		await axios.post(`/api/posts/unlike/${postId}`, {}, config);
 		const payload = {
 			postId,
 			userId,
@@ -172,10 +161,7 @@ export const deletePost = (postId) => async (dispatch) => {
 			},
 		};
 
-		await axios.delete(
-			`http://localhost:5000/api/posts/delete/${postId}`,
-			config
-		);
+		await axios.delete(`/api/posts/delete/${postId}`, config);
 		const payload = {
 			postId,
 		};

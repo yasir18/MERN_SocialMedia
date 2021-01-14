@@ -19,7 +19,7 @@ export const createProfile = (formdata) => async (dispatch) => {
 		};
 
 		const resp = await axios.post(
-			'http://localhost:5000/api/profile/createProfile',
+			'/api/profile/createProfile',
 			formdata,
 			config
 		);
@@ -48,10 +48,7 @@ export const getMyProfile = () => async (dispatch) => {
 			},
 		};
 
-		const resp = await axios.get(
-			'http://localhost:5000/api/profile/getMyProfile',
-			config
-		);
+		const resp = await axios.get('/api/profile/getMyProfile', config);
 		// console.log(resp.data);
 		dispatch({
 			type: PROFILE_LOADED,
@@ -78,7 +75,7 @@ export const getProfileByUserId = (id) => async (dispatch) => {
 		};
 
 		const resp = await axios.get(
-			`http://localhost:5000/api/profile/getProfileByUserId/${id}`,
+			`/api/profile/getProfileByUserId/${id}`,
 			config
 		);
 		// console.log(resp.data);
@@ -107,7 +104,7 @@ export const editProfile = (formdata) => async (dispatch) => {
 		};
 
 		const resp = await axios.put(
-			'http://localhost:5000/api/profile/editProfile',
+			'/api/profile/editProfile',
 			formdata,
 			config
 		);
