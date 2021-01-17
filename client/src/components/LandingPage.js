@@ -1,4 +1,3 @@
-import { Button } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,12 +5,11 @@ const LandingPage = () => {
 	return (
 		<div
 			style={{
-				width: '60%',
 				margin: 'auto',
 				width: '100%',
 				height: '100%',
 				backgroundImage:
-					'url(https://image.freepik.com/free-photo/digital-world-map-hologram-blue-background_1379-900.jpg)',
+					'url(https://img.freepik.com/free-photo/old-black-background-grunge-texture-dark-wallpaper-blackboard-chalkboard-room-wall_1258-28312.jpg)',
 			}}
 		>
 			{' '}

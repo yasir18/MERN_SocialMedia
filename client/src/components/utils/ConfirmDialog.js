@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 const ConfirmDialog = (props) => {
 	const { title, children, open, setOpen, onConfirm, postId } = props;
-	console.log('Inside Confirm Dialog with postid' + postId);
+	// console.log('Inside Confirm Dialog with postid' + postId);
 	return (
 		<Dialog
 			open={open}

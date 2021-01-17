@@ -7,6 +7,7 @@ import {
 	unlikePost,
 	deletePost,
 } from '../../actions/post';
+import { clearProfile } from '../../actions/profile';
 import { Button, Avatar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Spinner from '../utils/Spinner';
@@ -20,6 +21,7 @@ const PostsSection = (props) => {
 		likePost,
 		unlikePost,
 		deletePost,
+		clearProfile,
 		auth,
 		posts: { posts, loading },
 	} = props;
@@ -85,6 +87,10 @@ const PostsSection = (props) => {
 												style={{
 													margin: 'auto 5px',
 													color: 'darkcyan',
+												}}
+												onClick={() => {
+													console.log('clicled');
+													clearProfile();
 												}}
 											>
 												{post.name}
@@ -165,6 +171,7 @@ PostsSection.propTypes = {
 	likePost: PropTypes.func.isRequired,
 	unlikePost: PropTypes.func.isRequired,
 	deletePost: PropTypes.func.isRequired,
+	clearProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -177,4 +184,5 @@ export default connect(mapStateToProps, {
 	likePost,
 	unlikePost,
 	deletePost,
+	clearProfile,
 })(PostsSection);
