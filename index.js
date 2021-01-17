@@ -1,6 +1,7 @@
 var express = require('express');
 var cors = require('cors');
 var connectDb = require('./config/db');
+var path = require('path');
 
 const defaultRouter = require('./routes/defaultRoute');
 const userRouter = require('./routes/userRoutes');
@@ -23,6 +24,7 @@ app.use('/api/posts/', postRouter);
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('client/build'));
 	app.get('*', (req, res) => {
+		console.log('hello');
 		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 	});
 }

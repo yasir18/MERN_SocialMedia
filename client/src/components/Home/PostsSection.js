@@ -7,7 +7,8 @@ import {
 	unlikePost,
 	deletePost,
 } from '../../actions/post';
-import { Button, Avatar, Link } from '@material-ui/core';
+import { Button, Avatar } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import Spinner from '../utils/Spinner';
 import CreatePost from './CreatePost';
 import Pagination from './Pagination';
@@ -79,9 +80,7 @@ const PostsSection = (props) => {
 												margin: 'auto',
 											}}
 										/>
-										<Link
-											href={`/viewProfile/${post.user}`}
-										>
+										<Link to={`/viewProfile/${post.user}`}>
 											<span
 												style={{
 													margin: 'auto 5px',

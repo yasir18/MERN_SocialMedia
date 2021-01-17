@@ -1,7 +1,8 @@
 .login {
 	border: 2px black solid;
 	padding: 5%;
-	width: 35%;
+	width: 50%;
+	max-width: 450px;
 	margin: 5% auto;
 }
 
