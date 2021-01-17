@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Spinner from '../utils/Spinner';
-import { getMyProfile, getProfileByUserId } from '../../actions/profile';
+import {
+	getMyProfile,
+	getProfileByUserId,
+	clearProfile,
+} from '../../actions/profile';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
@@ -32,6 +36,7 @@ const ProfileDisplay = (props) => {
 		profile: { profile, loading },
 		auth,
 		getProfileByUserId,
+		clearProfile,
 		match,
 	} = props;
 
@@ -39,7 +44,11 @@ const ProfileDisplay = (props) => {
 		console.log('inside useffect of profile display ' + match.params.id);
 		//getMyProfile();
 		getProfileByUserId(match.params.id);
-	}, [getProfileByUserId, match.params.id]);
+		return () => {
+			console.log('inside return of Profile display');
+			clearProfile();
+		};
+	}, [getProfileByUserId, clearProfile, match.params.id]);
 
 	return (
 		<div>
@@ -96,6 +105,8 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getMyProfile, getProfileByUserId })(
-	withStyles(styles)(ProfileDisplay)
-);
+export default connect(mapStateToProps, {
+	getMyProfile,
+	getProfileByUserId,
+	clearProfile,
+})(withStyles(styles)(ProfileDisplay));

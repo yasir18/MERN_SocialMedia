@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getMyProfile } from '../../actions/profile';
+import { getMyProfile, clearProfile } from '../../actions/profile';
 import { Link } from 'react-router-dom';
 import { Button, Avatar } from '@material-ui/core';
 import Spinner from '../utils/Spinner';
@@ -9,12 +9,17 @@ import Spinner from '../utils/Spinner';
 const ProfileSection = (props) => {
 	const {
 		getMyProfile,
+		clearProfile,
 		profile: { profile, loading },
 	} = props;
 
 	useEffect(() => {
 		getMyProfile();
-	}, [getMyProfile]);
+		return () => {
+			console.log('inside return of Profile Section');
+			clearProfile();
+		};
+	}, [getMyProfile, clearProfile]);
 	console.log('Profile Section render ');
 	return (
 		<Fragment>
@@ -69,4 +74,6 @@ const mapStateToProps = (state) => ({
 	profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getMyProfile })(ProfileSection);
+export default connect(mapStateToProps, { getMyProfile, clearProfile })(
+	ProfileSection
+);

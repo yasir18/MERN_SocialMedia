@@ -1,4 +1,3 @@
-import { Button } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,7 +5,6 @@ const LandingPage = () => {
 	return (
 		<div
 			style={{
-				width: '60%',
 				margin: 'auto',
 				width: '100%',
 				height: '100%',
